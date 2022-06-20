@@ -1,0 +1,145 @@
+@import "../../../shared/scss/theme";
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .container {
+        width: 75%;
+        // height: auto;
+        // min-height: 437.625px;
+        border-radius: 1em;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 20px 30px 60px;
+        gap: 5px;
+        background-color: $basic;
+
+        .grp-name {
+            color: gray;
+            width: 90%;
+            margin-top: 20px;
+        }
+        .title {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            gap: 5px;
+            height: 30px;
+
+            label {
+                color: $primary;
+                font-size: 18px;
+            }
+
+            .btn-close {
+                margin-left: auto;
+                color: $primary;
+            }
+        }
+        .sub-title {
+            display: flex;
+            flex-direction: row;
+            border-left: 2px solid $primary;
+            padding-left: 5px;
+            width: 90%;
+            margin-top: 20px;
+            font-weight: 500;
+            font-size: 18px;
+        }
+        .fields {
+            width: 90%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            .field {
+                width: 350px;
+            }
+            @media only screen and (max-width:641px) {
+                .field { width: 100%; }
+            }
+        }
+        .role {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 20px;
+        }
+        .permissions {
+            width: 90%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 20px;
+        }
+
+        .actions {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+    }
+
+    .onblur {
+        filter: blur(1.5px);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .on-toggle-close-information {
+        width: 300px;
+        z-index: 1;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: $primary;
+        border-radius: 1em;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgb(255, 60, 0);
+    }
+}

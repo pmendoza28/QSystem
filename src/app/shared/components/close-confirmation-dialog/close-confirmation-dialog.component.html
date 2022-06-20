@@ -1,0 +1,11 @@
+<div class="close-confirmation" [class.on-toggle-close-information]="isCloseConfirmationShow">
+    <button mat-fab class="btn-fab">
+        <mat-icon>question_mark</mat-icon>
+    </button>
+    <div class="question" [class.question-color-on-close]="!isCloseConfirmationShow">Are you sure you want to</div>
+    <div class="question" [class.question-color-on-close]="!isCloseConfirmationShow">cancel Add User?</div>
+    <div class="actions">
+        <button (click)="toggleClose()" mat-raised-button>No</button>
+        <button [routerLink]="['/admin/user-accounts']" mat-raised-button class="btn-primary">Yes</button>
+    </div>
+</div>

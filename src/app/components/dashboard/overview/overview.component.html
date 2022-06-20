@@ -1,0 +1,120 @@
+<div class="container">
+    <div class="filter">
+        <mat-form-field appearance="fill" color="accent">
+            <mat-label>
+                <mat-icon>date_range</mat-icon>
+                Select Date
+            </mat-label>
+            <mat-select [(ngModel)]="selectedDate">
+                <mat-option *ngFor="let date of dates" [value]="date">
+                    {{date}}
+                </mat-option>
+            </mat-select>
+            <mat-hint>Query Date</mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="visits">
+        <div class="title">
+            <mat-icon>public</mat-icon>
+            VISITS
+        </div>
+        <div class="value">{{4036 | number}}</div>
+    
+        <div class="title">
+            <mat-icon>group_add</mat-icon>
+            NEW MEMBERS
+        </div>
+        <div class="value">{{3829 | number}}</div>
+    
+        <div class="title">
+            <mat-icon>people</mat-icon>
+            TOTAL MEMBERS
+        </div>
+        <div class="value">{{3829 | number}}</div>
+    </div>
+    <div class="overview-graph">
+        <div class="title">
+            <mat-icon>pie_chart</mat-icon>
+            OVERVIEW GRAPH
+        </div>
+        <div class="bar-graph">
+            <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                [type]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+            </canvas>
+        </div>
+    </div>
+    <div class="member-demographics">
+        <div class="title">
+            <mat-icon>groups</mat-icon>
+            MEMBER DEMOGRAPHICS
+        </div>
+        <div class="value">
+            <div class="male">
+                <mat-icon>male</mat-icon>
+                <div>MALE: </div>
+            </div>
+            <div class="male-value">
+                {{26.67 | number}}%
+            </div>
+            <div class="divider"></div>
+            <div class="female">
+                <mat-icon>female</mat-icon>
+                <div>FEMALE: </div>
+            </div>
+            <div class="female-value">
+                {{73.33 | number}}%
+            </div>
+        </div>
+    </div>
+    <div class="returning-visits">
+        <div class="title">
+            <mat-icon>public</mat-icon>
+            VISITS
+        </div>
+        <div class="value">{{17598 | number}}</div>
+    </div>
+    <div class="top-members">
+        <div class="title">
+            <mat-icon>local_bar</mat-icon>
+            TOP MEMBERS
+        </div>
+        <div class="value">
+            <label class="rank-number">1.</label>
+            <div class="member-name">Andrea Andres</div>
+        </div>
+        <div class="value">
+            <label class="rank-number">2.</label>
+            <div class="member-name">Pauleen Panero</div>
+        </div>
+        <div class="value">
+            <label class="rank-number">3.</label>
+            <div class="member-name">Zandy Samara Jr.</div>
+        </div>
+        <div class="value">
+            <label class="rank-number">4.</label>
+            <div class="member-name">Wandy Scarlet</div>
+        </div>
+    </div>
+    <div class="top-branches">
+        <div class="title">
+            <mat-icon>query_stats</mat-icon>
+            TOP BRANCHES
+        </div>
+        <div class="value">
+            <label class="rank-number">1.</label>
+            <div class="member-name">FO68 - OLONGAPO (MARKET)</div>
+        </div>
+        <div class="value">
+            <label class="rank-number">2.</label>
+            <div class="member-name">FO73 - SUBIC CENTRO</div>
+        </div>
+        <div class="value">
+            <label class="rank-number">3.</label>
+            <div class="member-name">FOX49 - MINALIN (SAN MATIAS)</div>
+        </div>
+        <div class="value">
+            <label class="rank-number">4.</label>
+            <div class="member-name">FO41 - OLONGAPO (YBC)</div>
+        </div>
+    </div>
+</div>

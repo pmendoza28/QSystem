@@ -1,0 +1,12 @@
+<ng-container class="confimation-dialog" *ngIf="data.action == 'createUserAccount'">
+    <h2 mat-dialog-title>Confirmation</h2>
+    <mat-dialog-content class="mat-typography">
+        Are you sure you want to create this user acccount?
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button [disabled]="(isCreatingUserAccount$ | async) || (errorCreateUserAccount)"
+            [class.spinner]="isCreatingUserAccount$ | async" mat-raised-button class="btn-primary" cdkFocusInitial
+            (click)="createUserAccount()">Create</button>
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+</ng-container>

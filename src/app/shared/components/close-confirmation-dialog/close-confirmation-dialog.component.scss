@@ -1,0 +1,42 @@
+@import "../../scss/theme";
+.onblur {
+    filter: blur(1.5px);
+}
+
+.close-confirmation {
+    top: 220px;
+    width: 0px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 230px;
+    background-color: $bgColor;
+    border-radius: 1em;
+    z-index: -1;
+    .btn-fab {
+        margin-bottom: 10px;
+    }
+    .question {
+        font-weight: bold;
+        font-size: 16px;
+        letter-spacing: 1px;
+        color: white;
+        margin-bottom: 5px;
+    }
+    .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin-top: 10px;
+        button { width: 100px;}
+    }
+}
+
+.on-toggle-close-information {
+    width: 350px;
+    z-index: 1;
+}

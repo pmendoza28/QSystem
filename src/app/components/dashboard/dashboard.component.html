@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="tab-header">
+        <!-- <div class="selected-component unselectable ">
+            {{selectedMenu | uppercase}}
+        </div> -->
+        <div (click)="selectMenu('overview')" class="menu first-menu" [class.selected-menu]="selectedMenu == 'overview'">Overview</div>
+        <div (click)="selectMenu('branches')" class="menu branches-label" [class.selected-menu]="selectedMenu == 'branches'">Branches</div>
+    </div>
+    <div class="component">
+        <app-overview *ngIf="selectedMenu == 'overview'"></app-overview>
+        <app-branches *ngIf="selectedMenu == 'branches'"></app-branches>
+    </div>
+</div>

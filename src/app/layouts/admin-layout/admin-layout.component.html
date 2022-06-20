@@ -1,0 +1,136 @@
+<div class="wrapper">
+    <div class="sidebar unselectable" [class.closed]="!adminLayoutService.isSidebarOpen"
+        [class.mobile-view]="adminLayoutService.view == 'mobile'">
+        <button (click)="toggle()" class="close-button" mat-icon-button
+            [class.desktop-close-button]="adminLayoutService.view !='mobile' || adminLayoutService.isSidebarOpen == false">X</button>
+        <div class="logo">
+            <img src="../../../assets/logo/q_system_logo6.png" alt="">
+        </div>
+        <div class="menu-container">
+            <div (click)="navigateTo('dashboard')" class="single-menu selected">
+                <mat-icon>dashboard</mat-icon>
+                <div>Dashboard</div>
+            </div>
+            <div class="nested-menu" [class.nested-mobile-view]="adminLayoutService.view == 'mobile'">
+                <div class="parent" (click)="toggleMasterlist()">
+                    <mat-icon>lists</mat-icon>
+                    <div>Masterlist</div>
+                    <mat-icon class="expand">{{isMasterlistOpen ? "expand_less" : "expand_more"}}</mat-icon>
+                </div>
+                <div class="child" [class.toggle-child]="isMasterlistOpen">
+                    <div *ngFor="let menu of masterlists" class="c-menu" (click)="navigateTo('user-accounts')">
+                        <mat-icon>{{menu.icon}}</mat-icon>
+                        <label>{{menu.label}}</label>
+                    </div>
+                    <!-- <div class="c-menu" (click)="navigateTo('user-accounts')">
+                        <mat-icon>business</mat-icon>
+                        <label>Business Operations</label>
+                    </div> -->
+                    
+                </div>
+            </div>
+            <div class="single-menu">
+                <mat-icon>store</mat-icon>
+                <div>Store</div>
+            </div>
+            <div class="single-menu">
+                <mat-icon>people</mat-icon>
+                <div>Members</div>
+            </div>
+            <div class="single-menu">
+                <mat-icon>text_snippet</mat-icon>
+                <div>Reports</div>
+
+            </div>
+            <div class="single-menu">
+                <mat-icon>drive_file_move</mat-icon>
+                <div>Data Migration</div>
+            </div>
+            <div class="single-menu">
+                <mat-icon>view_list</mat-icon>
+                <div>Activity Logs</div>
+            </div>
+        </div>
+        <div class="mis-logo">
+            <img src="../../../assets/logo/mis2.png" alt="">
+
+        </div>
+    </div>
+    <div class="admin-body" >
+        <div class="header">
+            <button (click)="toggle()" class="btn-menu" mat-icon-button>
+                <mat-icon>menu</mat-icon>
+            </button>
+            <div class="title">{{adminLayoutService.currentComponent}}</div>
+            <button (click)="logout()" mat-mini-fab class="btn-user">
+                <mat-icon>person</mat-icon>
+            </button>
+        </div>
+        <div class="main">
+            <button (click)="toggleNotification()" mat-icon-button class="btn-notification btn-primary">
+                <mat-icon>notifications</mat-icon>
+            </button>
+            <div class="notifications custom-elavation unselectable"
+                [ngClass]="{'close-noti': isNotificationOpen == false, 'show-noti' : isNotificationOpen == true }">
+                <div class="title">
+                    <mat-icon>notifications_outline</mat-icon>
+                    <label class="unselectable">Notifications</label>
+                    <button (click)="toggleNotification()" mat-icon-button class="btn-close">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+                <div class="noti-list">
+                    <div class="noti">
+                        <div class="store-name">
+                            <li>FOMP01 - DOLORES</li>
+                        </div>
+                        <div class="value">
+                            Generated file for updating of OFFLINE data
+                        </div>
+                        <div class="date">
+                            02/04/2022
+                        </div>
+                    </div>
+
+                    <div class="noti">
+                        <div class="store-name">
+                            <li>FOMP01 - DOLORES</li>
+                        </div>
+                        <div class="value">
+                            Generated file for updating of OFFLINE data
+                        </div>
+                        <div class="date">
+                            02/04/2022
+                        </div>
+                    </div>
+
+                    <div class="noti">
+                        <div class="store-name">
+                            <li>FOMP01 - DOLORES</li>
+                        </div>
+                        <div class="value">
+                            Generated file for updating of OFFLINE data
+                        </div>
+                        <div class="date">
+                            02/04/2022
+                        </div>
+                    </div>
+
+                    <div class="noti">
+                        <div class="store-name">
+                            <li>FOMP01 - DOLORES</li>
+                        </div>
+                        <div class="value">
+                            Generated file for updating of OFFLINE data
+                        </div>
+                        <div class="date">
+                            02/04/2022
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <router-outlet class="outlet"></router-outlet>
+        </div>
+        <div class="footer">footer</div>
+    </div>
+</div>

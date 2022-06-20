@@ -1,0 +1,68 @@
+<div class="wrapper">
+    <div class="container">
+        <div class="title">
+            <mat-icon>person</mat-icon>
+            <label>User Accounts</label>
+            <button type="button" (click)="toggleClose()" mat-icon-button class="btn-close">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div class="sub-title">ADD USER</div>
+        <div class="grp-name" style="margin-top: 20px;">USER INFORMATION</div>
+        <div class="fields">
+            <mat-form-field class="field" appearance="legacy" color="accent">
+                <mat-label>FIRST NAME</mat-label>
+                <input #txtFirstName (keydown.enter)="createUser()" class="upper-case" appInputLetterOnly [formControl]="firstname" matInput autocomplete="off">
+                <mat-error *ngIf="firstname.errors?.required == true">First Name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field" appearance="legacy" color="accent">
+                <mat-label>LAST NAME</mat-label>
+                <input (keydown.enter)="createUser()" class="upper-case" [formControl]="lastname" matInput autocomplete="off">
+                <mat-error *ngIf="lastname.errors?.required == true">Last Name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field" appearance="legacy" color="accent">
+                <mat-label>USER NAME</mat-label>
+                <input (keydown.enter)="createUser()" [formControl]="username" matInput autocomplete="off">
+                <mat-error *ngIf="username.errors?.required == true">User Name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field" appearance="legacy" color="accent">
+                <mat-label>Enter your password</mat-label>
+                <input (keydown.enter)="createUser()" [formControl]="password" matInput [type]="passwordHide ? 'password' : 'text'">
+                <mat-error *ngIf="password.errors?.required == true">Password is required</mat-error>
+                <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+                  <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+        </div>
+
+        <ng-container *ngIf="roles$ | async as roles">
+            <div class="grp-name">USER ROLE</div>
+            <mat-radio-group class="role" [formControl]="role_id" (change)="populatePermissions()">
+                <mat-radio-button (keydown.enter)="createUser()" *ngFor="let role of roles" [value]="role.id">
+                    {{role.role_desc}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </ng-container>
+
+        <ng-container *ngIf="permissions; else loadingPermissions">
+            <div class="grp-name">PERMISSIONS</div>
+            <div class="permissions">
+                <ng-container *ngFor="let permission of permissions; let i = index " ;>
+                    <mat-checkbox (keydown.enter)="createUser()" [(ngModel)]="permission.isChecked" color="accent" [value]="permission.id">
+                        {{permission.module_desc}}
+                    </mat-checkbox>
+                </ng-container>
+            </div>
+        </ng-container>
+        <ng-template #loadingPermissions>
+            <div class="grp-name"> Loading Permissions...</div>
+        </ng-template>
+
+        <div class="actions">
+            <button mat-raised-button color="accent" (click)="createUser()" [disabled]="!isFormValid()">Create</button>
+        </div>
+    </div>
+</div>

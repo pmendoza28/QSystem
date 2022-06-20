@@ -1,0 +1,48 @@
+<!-- <div *ngFor="let todo of todos$ | async">
+    {{todo.id}}:  {{todo.title}}
+
+
+ 
+</div> -->
+
+
+{{civilStatus() | async}}
+
+
+<button (click)="toggle()">click me</button>
+{{isOpen$ | async}}
+
+<div *ngFor="let data of datas$ | async; let i = index; trackBy:trackNameIndex ">
+    {{i + 1}}: {{data.name}}
+    <input type="text" [(ngModel)]="data.name">
+</div>
+<button (click)="checkData()">check data</button>
+
+
+<input  type="text" [formControl]="nameFC">
+
+<button [disabled]="nameFC.status == 'INVALID'" (click)="addName()">add name</button>
+
+{{1000 | customPipe}}
+
+{{ 23 | customPipe}}
+
+<br>
+<ng-container *ngIf="name$ | async as name">
+    {{name.firstName}}
+    {{name.lastName}}
+</ng-container>
+
+<br>
+<ng-container *ngIf="todos$ | async as todos"; else loading >
+   <div *ngFor="let todo of todos; trackBy: trackNameIndex">
+    {{todo.id}}
+    {{todo.title}}
+   </div>
+</ng-container>
+
+
+<ng-container #loading>
+    loading..
+</ng-container>
+
