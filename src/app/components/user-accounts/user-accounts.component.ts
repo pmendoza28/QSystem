@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
@@ -41,7 +41,7 @@ export class UserAccountsComponent implements OnInit {
     { icon: "event", label: "Date Created", value: "Yesterday" },
     { icon: "settings", label: "Actions", value: "" },
   ];
-  txtSearch: FormControl = new FormControl("");
+  txtSearch: UntypedFormControl = new UntypedFormControl("");
   pageSizeOptions = [5, 10, 15, 20, 100];
   limit = new BehaviorSubject<number>(5)
   page = new BehaviorSubject<number>(1);

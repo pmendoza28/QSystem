@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -16,7 +16,7 @@ import { AdminLoginService } from './admin-login.service';
 export class AdminLoginComponent {
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private credentialsService: CredentialsService,
     private cdRef: ChangeDetectorRef,
@@ -25,7 +25,7 @@ export class AdminLoginComponent {
   ) { }
 
   subs = new SubSink()
-  loginForm: FormGroup = this.fb.group({
+  loginForm: UntypedFormGroup = this.fb.group({
     username: ["", Validators.required],
     password: ["", Validators.required],
   })

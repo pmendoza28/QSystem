@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { fromEvent, interval, of } from 'rxjs';
 import { debounceTime, map, mapTo, switchMap } from 'rxjs/operators';
 import { RxjsService } from './rxjs.service';
@@ -34,7 +34,7 @@ export class RxjsComponent implements OnInit {
       }))
     ).subscribe(console.log)
   }
-  searchControl: FormControl = new FormControl("", [Validators.required])
+  searchControl: UntypedFormControl = new UntypedFormControl("", [Validators.required])
   counter: number = 0;
   switchMapOperator() {
     // fromEvent(document, "click").pipe(

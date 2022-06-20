@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { SubSink } from 'subsink';
@@ -18,7 +18,7 @@ export class EditUserAccountsComponent implements OnInit {
     private router: Router,
     private userAccountsService: UserAccountsService,
     private changeDetectionRef: ChangeDetectorRef,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) { }
 
   user_id: Observable<number> = new BehaviorSubject<number>(this.route.snapshot.params['user_id']);
@@ -41,11 +41,11 @@ export class EditUserAccountsComponent implements OnInit {
   })
 
   subs = new SubSink()
-  firstname: FormControl = new FormControl("", [Validators.required]);
-  lastname: FormControl = new FormControl("", [Validators.required]);
-  username: FormControl = new FormControl("", [Validators.required])
-  password: FormControl = new FormControl("", [Validators.required])
-  role_id: FormControl = new FormControl("", [Validators.required])
+  firstname: UntypedFormControl = new UntypedFormControl("", [Validators.required]);
+  lastname: UntypedFormControl = new UntypedFormControl("", [Validators.required]);
+  username: UntypedFormControl = new UntypedFormControl("", [Validators.required])
+  password: UntypedFormControl = new UntypedFormControl("", [Validators.required])
+  role_id: UntypedFormControl = new UntypedFormControl("", [Validators.required])
   roles$: Observable<any> = this.userAccountsService.getRoles();
   permissions: any[] = [];
   userAccount: {
@@ -58,7 +58,7 @@ export class EditUserAccountsComponent implements OnInit {
     access_permission: number[]
   }
 
-  sampleForm: FormGroup = this.fb.group({
+  sampleForm: UntypedFormGroup = this.fb.group({
     username: [],
     password: []
   })

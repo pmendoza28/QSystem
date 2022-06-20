@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ITodo, StreamService } from './stream.service';
@@ -47,7 +47,7 @@ export class StreamComponent {
     { name: "Josh" },
   ])
 
-  nameFC: FormControl = new FormControl("", [Validators.required, Validators.minLength(5)])
+  nameFC: UntypedFormControl = new UntypedFormControl("", [Validators.required, Validators.minLength(5)])
 
   checkData() {
     this.datas$.subscribe(console.log)

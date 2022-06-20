@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -16,7 +16,7 @@ import { UserAccountsService } from '../user-accounts.service';
 export class CreateUserAccountsComponent implements OnInit, OnDestroy {
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private dialog: MatDialog,
     private userAccountsService: UserAccountsService,
@@ -25,11 +25,11 @@ export class CreateUserAccountsComponent implements OnInit, OnDestroy {
 
   /** @States */
   subs = new SubSink()
-  firstname: FormControl = new FormControl("", [Validators.required]);
-  lastname: FormControl = new FormControl("", [Validators.required]);
-  username: FormControl = new FormControl("", [Validators.required])
-  password: FormControl = new FormControl("", [Validators.required])
-  role_id: FormControl = new FormControl(1, [Validators.required])
+  firstname: UntypedFormControl = new UntypedFormControl("", [Validators.required]);
+  lastname: UntypedFormControl = new UntypedFormControl("", [Validators.required]);
+  username: UntypedFormControl = new UntypedFormControl("", [Validators.required])
+  password: UntypedFormControl = new UntypedFormControl("", [Validators.required])
+  role_id: UntypedFormControl = new UntypedFormControl(1, [Validators.required])
   roles$: Observable<any> = this.userAccountsService.getRoles();
   passwordHide = true;
   permissions: any[];
