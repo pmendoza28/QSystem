@@ -10,3 +10,57 @@
         <button mat-raised-button mat-dialog-close>Cancel</button>
     </mat-dialog-actions>
 </ng-container>
+
+<ng-container class="confimation-dialog" *ngIf="data.action == 'updateUserAccount'">
+    <h2 mat-dialog-title>Confirmation</h2>
+    <mat-dialog-content class="mat-typography">
+        Are you sure you want to update this user acccount?
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button [disabled]="isUpdatingUserAccount$ | async"
+            [class.spinner]="isUpdatingUserAccount$ | async" mat-raised-button class="btn-primary" cdkFocusInitial
+            (click)="updateUserAccount()">Update</button>
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+</ng-container>
+
+<ng-container class="confimation-dialog" *ngIf="data.action == 'archiveUser'">
+    <h2 mat-dialog-title>Confirmation</h2>
+    <mat-dialog-content class="mat-typography">
+        {{data.question}}
+        <mat-divider></mat-divider>
+        <div class="user-details">
+            <div class="title">User Details</div>
+            <li>{{data.user.id}}</li>
+            <li>{{data.user.firstname}} {{data.user.lastname}}</li>
+            <li>{{data.user.role}}</li>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button [disabled]="isArchivingUserAccount$ | async"
+            [class.spinner]="isArchivingUserAccount$ | async" mat-raised-button class="btn-primary" cdkFocusInitial
+            (click)="archiveUserAccount()">Archive</button>
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+</ng-container>
+
+<ng-container class="confimation-dialog" *ngIf="data.action == 'resetPassword'">
+    <h2 mat-dialog-title>Confirmation</h2>
+    <mat-dialog-content class="mat-typography">
+        Are you sure you want to reset password this user acccount?
+        <mat-divider></mat-divider>
+        <div class="user-details">
+            <div class="title">User Details</div>
+            <li>{{data.user.id}}</li>
+            <li>{{data.user.firstname}} {{data.user.lastname}}</li>
+            <li>{{data.user.role}}</li>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button [disabled]="isPasswordResetting$ | async"
+            [class.spinner]="isPasswordResetting$ | async" mat-raised-button class="btn-primary" cdkFocusInitial
+            (click)="resetPassword()">Reset Password</button>
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+</ng-container>
+

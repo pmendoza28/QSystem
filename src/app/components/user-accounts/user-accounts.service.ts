@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, delay, map, retry, retryWhen, take, tap, timeout } from 'rxjs/operators';
+import { catchError, delay, map, retry, retryWhen, shareReplay, take, tap, timeout } from 'rxjs/operators';
 import { IGetApiArgument } from 'src/app/shared/models/shared.model';
 import { CredentialsService } from 'src/app/shared/services/credentials.service';
-import { IUserAccountForm, IUserAccountsTable, IRole, ICreateUserAccountResponse } from './user-accounts.model';
+import { IUserAccountForm, IUserAccountsTable, IRole, ICreateUserAccountResponse, IGetUserAccountByIdResponse } from './user-accounts.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,6 @@ export class UserAccountsService {
 
   getUserAccounts(query: IGetApiArgument): Observable<IUserAccountsTable> {
     return this.http.get<IUserAccountsTable>(`${this.credentialsService.port}/admin/user-accounts?search=${query.search}&limit=${query.limit}&page=${query.page}`).pipe(
-      delay(2000),
       map(users => {
         return {
           data: users.data,
@@ -28,17 +27,23 @@ export class UserAccountsService {
         }
       }),
       catchError(error => {
-        return of(error)
+        return throwError(error)
       }),
-      retryWhen(
-        error => error.pipe(
-          delay(2000),
-          take(5),
-        )
-      ),
       timeout(10000)
 
 
+    )
+  }
+
+  getArchivedUserAccounts(query: IGetApiArgument): Observable<any> {
+    return this.http.get(`${this.credentialsService.port}/admin/user-accounts-archived?search=${query.search}&limit=${query.limit}100&page=${query.page}`).pipe(
+      map((user: any) => {
+        return {
+          data: user.data,
+          total: user.total
+        }
+      }),
+      timeout(10000)
     )
   }
 
@@ -64,6 +69,30 @@ export class UserAccountsService {
       tap(val => console.log(val)),
       timeout(10000)
     )
+  }
+
+  // userAccountById$ = this.http.get(`${this.credentialsService.port}/getuserbyid?id=6`)
+  getUserAccountById(userId: number): Observable<IGetUserAccountByIdResponse> {
+    return this.http.get<IGetUserAccountByIdResponse>(`${this.credentialsService.port}/admin/getuserbyid?id=${userId}`)
+  }
+
+  updateUserAccountById(userId: number, userAccountForm: {
+    firstname: string;
+    lastname: string;
+    username: string;
+    role_id: number;
+    access_permissions: number[]
+  }): Observable<any> {
+    return this.http.put(`${this.credentialsService.port}/admin/update-user/${userId}`, userAccountForm)
+  }
+
+
+  archiveUserAccountById(userId: number, status: boolean) {
+    return this.http.put(`${this.credentialsService.port}/admin/archive-restore-user/${userId}`, { status })
+  }
+
+  resetPassword(userId: number): Observable<any> {
+    return this.http.put(`${this.credentialsService.port}/admin/reset-user-password/${userId}`, {})
   }
 }
 

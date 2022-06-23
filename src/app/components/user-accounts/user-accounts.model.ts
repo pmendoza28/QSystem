@@ -23,6 +23,20 @@ export interface ICreateUserAccountResponse {
     message?: any
 }
 
+export interface IGetUserAccountByIdResponse {
+    id: number;
+    firstname: string;
+    lastname: string;
+    is_active: string;
+    username: string;
+    role: {
+        role_id: number;
+        role_desc: string;
+    }
+    created_at: string;
+    deleted_at: string;
+    access_permission: any[]
+}
 
 export interface IUserAccountsTable {
     data: any,

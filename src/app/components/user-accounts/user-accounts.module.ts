@@ -19,6 +19,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DirectivesModule } from 'src/app/directives/directives.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { EditUserAccountsComponent } from './edit-user-accounts/edit-user-accounts.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
 
 const routes: Routes = [
   { path: '', component: UserAccountsComponent },
@@ -50,7 +52,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatMenuModule,
     DirectivesModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatDividerModule
   ]
 })
 export class UserAccountsModule { }

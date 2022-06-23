@@ -1,0 +1,22 @@
+@import "../../../shared/scss/theme";
+
+.user-details {
+    width: 96%;
+    margin-top: 5px;
+    border-radius: 5px;
+    background-color: $bgColor;
+    padding: 5px;
+
+    .title {
+        color: $primary;
+    }
+
+    li {
+        color: $accent;
+    }
+}
+
+mat-divider {
+    border-top-color: $accent;
+    margin: 10px 0px;
+}

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { AdminLayoutService } from 'src/app/layouts/admin-layout/admin-layout.service';
 import { SubSink } from 'subsink';
+import { DialogUserAccountsComponent } from './dialog-user-accounts/dialog-user-accounts.component';
 import { UserAccountsService } from './user-accounts.service';
 
 @Component({
@@ -16,7 +18,8 @@ export class UserAccountsComponent implements OnInit {
 
   constructor(
     public adminLayoutService: AdminLayoutService,
-    private userAccountService: UserAccountsService
+    private userAccountService: UserAccountsService,
+    private dialog: MatDialog
   ) { }
   subs = new SubSink();
   dataSource = new MatTableDataSource<any>();
@@ -47,7 +50,8 @@ export class UserAccountsComponent implements OnInit {
   page = new BehaviorSubject<number>(1);
   total = new Subject<number>();
   textLoader = new BehaviorSubject<"No Data" | "Loading..." | "Something went wrong">("Loading...")
-
+  initialUserStatus = new BehaviorSubject(true)
+  isArchived = new BehaviorSubject(false);
   ngOnInit(): void {
     this.populateUserAccounts()
   }
@@ -60,16 +64,95 @@ export class UserAccountsComponent implements OnInit {
         this.dataSource.data = response.data
         this.total.next(response.total)
         response.data.length == 0 && this.textLoader.next("No Data")
-      }, error =>{
+      }, error => {
         this.textLoader.next("Something went wrong");
       })
     )
+  }
+
+  search() {
+    console.log(this.isArchived.getValue())
+    this.isArchived.getValue() == true ? this.populateArchivedUserAccounts() : this.populateUserAccounts() 
   }
 
   onChangePage(pageData: PageEvent) {
     this.page.next(pageData.pageIndex + 1);
     this.limit.next(pageData.pageSize);
     this.populateUserAccounts();
+  }
+
+  // setActive() {
+  //   this.txtSearch.setValue("")
+  //   this.isArchived.next(!this.isArchived.getValue())
+  //   this.populateUserAccounts()
+  // }
+
+  toggleArchived() {
+    this.txtSearch.setValue("")
+    this.isArchived.next(!this.isArchived.getValue())
+    if(this.isArchived.getValue() == true) {
+      this.populateArchivedUserAccounts()
+    }
+    if(this.isArchived.getValue() == false) {
+      this.populateUserAccounts()
+    }
+  }
+
+  // setArchived() { 
+  //   this.txtSearch.setValue("")
+  //   this.isArchived.next(!this.isArchived.getValue())
+  //   this.populateArchivedUserAccounts()
+  // }
+
+  populateArchivedUserAccounts() {
+    this.dataSource.data = []
+    this.userAccountService.getArchivedUserAccounts({ search: this.txtSearch.value, limit: this.limit.getValue(), page: this.page.getValue() }).subscribe({
+      next: (response) => {
+        this.dataSource.data = response.data;
+        this.total.next(response.total)
+        response.data.length == 0 && this.textLoader.next("No Data")
+      },
+      error: (err) => {
+        this.textLoader.next("Something went wrong");
+      }
+    })
+  }
+  archiveUser(userId: number, status: boolean, user: any) {
+    this.dialog.open(DialogUserAccountsComponent, {
+      disableClose: true,
+      data: {
+        userId,
+        action: "archiveUser",
+        status,
+        user,
+        question: status == false ? "Are you sure you want to archive this user account?" : "Are you sure you want to activate this user account?"
+      }
+    }).afterClosed().subscribe(response => {
+      if(response.isArchived) {
+        if(this.isArchived.getValue() == false) {
+          this.populateUserAccounts()
+        }
+        else {
+          this.populateArchivedUserAccounts()
+        }
+      }
+    })
+  }
+
+  resetPassword(userId:number, user: any) {
+    this.dialog.open(DialogUserAccountsComponent, {
+      disableClose: true,
+      data: {
+        userId,
+        action: "resetPassword",
+        user
+      }
+    }).afterClosed().subscribe(response => {
+      if(response.userId) {
+        let index = this.dataSource.data.findIndex(user => user.id == response.userId)
+        this.dataSource.data[index].isPasswordReset = true
+      }
+    })
   }
 
   ngOnDestroy(): void {

@@ -27,8 +27,8 @@ export class CreateUserAccountsComponent implements OnInit, OnDestroy {
   subs = new SubSink()
   firstname: UntypedFormControl = new UntypedFormControl("", [Validators.required]);
   lastname: UntypedFormControl = new UntypedFormControl("", [Validators.required]);
-  username: UntypedFormControl = new UntypedFormControl("", [Validators.required])
-  password: UntypedFormControl = new UntypedFormControl("", [Validators.required])
+  username: UntypedFormControl = new UntypedFormControl("", [Validators.required, Validators.minLength(4)])
+  password: UntypedFormControl = new UntypedFormControl("", [Validators.required, Validators.minLength(4)])
   role_id: UntypedFormControl = new UntypedFormControl(1, [Validators.required])
   roles$: Observable<any> = this.userAccountsService.getRoles();
   passwordHide = true;
@@ -77,7 +77,6 @@ export class CreateUserAccountsComponent implements OnInit, OnDestroy {
           role_id: this.role_id.value,
           access_permission: this.permissions.filter(per => per.isChecked == true).map(selectedPermissions => selectedPermissions.id)
         }).subscribe((userForm) => {
-          console.log(userForm)
           this.dialog.open(DialogUserAccountsComponent, {
             disableClose: true,
             data: {
