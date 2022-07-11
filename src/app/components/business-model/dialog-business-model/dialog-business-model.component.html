@@ -1,0 +1,122 @@
+<div *ngIf="data.action == 'businessModelForm'" class="business-model-form">
+    <div class="dialog-title">
+        <label class="dialog-label">Add Business Model</label>
+        <button (click)=" closeDialog()" type="button" mat-icon-button class="btn-close">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <form class="form" [formGroup]="businessModelForm" (submit)="showCreateDialog()">
+        <mat-form-field color="accent">
+            <mat-label>Business Operation</mat-label>
+            <mat-select #cbProvinces formControlName="business_operation_code" autoFocus cdkFocusInitial>
+                <mat-option>
+                    <ngx-mat-select-search [formControl]="BusinessOperationFilterCtrl"
+                        placeholderLabel="{{businessOperationPlaceHolder}}"
+                        noEntriesFoundLabel="'no matching Province'">
+                    </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of filteredBusinessOperation | async" [value]="item.code">
+                    {{item.name | uppercase}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="businessModelForm.controls.business_operation_code.errors?.required == true">Business
+                Operation is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy" color="accent">
+            <mat-label>DESCRIPTION</mat-label>
+            <input matInput autocomplete="off" formControlName="name" class="upper-case">
+            <mat-error *ngIf="businessModelForm.controls.name.errors?.required == true">Business Model Description is
+                required</mat-error>
+        </mat-form-field>
+        <div class="actions">
+            <button mat-raised-button class="btn-primary btn-action-dialog"
+                [disabled]="!businessModelForm.valid">CREATE</button>
+        </div>
+    </form>
+
+</div>
+
+
+<div class="confirmation-dialog" *ngIf="data.action == 'submitBusinessModel'">
+    <mat-icon class="icon" [ngStyle]="{'color':'#303F9F'}">
+        help
+    </mat-icon>
+    <div class="question-no-1">{{data.question1}}</div>
+    <div class="question-no-2">{{data.question2}}</div>
+    <mat-dialog-actions>
+        <button class="btn-action-dialog btn-no" mat-raised-button mat-dialog-close>NO</button>
+        <button [disabled]="(isCreatingBusinessModel$ | async)" [class.spinner]="isCreatingBusinessModel$ | async"
+            mat-raised-button class="btn-action-dialog btn-primary" cdkFocusInitial
+            (click)="createBusinessModel()">YES</button>
+
+    </mat-dialog-actions>
+</div>
+
+
+<div *ngIf="data.action == 'editBusinessModelForm'" class="business-model-form">
+    <div class="dialog-title">
+        <label class="dialog-label">Edit Business Model</label>
+        <button (click)=" closeDialog()" type="button" mat-icon-button class="btn-close">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <form class="form" [formGroup]="businessModelForm" (submit)="showUpdateDialog()">
+        <mat-form-field color="accent">
+            <mat-label>Business Operation</mat-label>
+            <mat-select [disabled]="true" #cbProvinces formControlName="business_operation_code" autoFocus >
+                <mat-option>
+                    <ngx-mat-select-search [formControl]="BusinessOperationFilterCtrl"
+                        placeholderLabel="{{businessOperationPlaceHolder}}"
+                        noEntriesFoundLabel="'no matching Province'">
+                    </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of filteredBusinessOperation | async" [value]="item.code">
+                    {{item.name | uppercase}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="businessModelForm.controls.business_operation_code.errors?.required == true">Business
+                Operation is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy" color="accent">
+            <mat-label>DESCRIPTION</mat-label>
+            <input cdkFocusInitial matInput autocomplete="off" formControlName="name" class="upper-case">
+            <mat-error *ngIf="businessModelForm.controls.name.errors?.required == true">Business Model Description is
+                required</mat-error>
+        </mat-form-field>
+        <div class="actions">
+            <button mat-raised-button class="btn-primary btn-action-dialog"
+                [disabled]="!businessModelForm.valid">SAVE</button>
+        </div>
+    </form>
+
+</div>
+
+
+<div class="confirmation-dialog" *ngIf="data.action == 'UpdateBusinessModel'">
+    <mat-icon class="icon" [ngStyle]="{'color':'#303F9F'}">
+        help
+    </mat-icon>
+    <div class="question-no-1">{{data.question1}}</div>
+    <div class="question-no-2">{{data.question2}}</div>
+    <mat-dialog-actions>
+        <button class="btn-action-dialog btn-no" mat-raised-button mat-dialog-close>NO</button>
+        <button [disabled]="(isUpdatingbusinessModel$ | async)" [class.spinner]="isUpdatingbusinessModel$ | async"
+            mat-raised-button class="btn-action-dialog btn-primary" cdkFocusInitial
+            (click)="updateBusinessModel()">YES</button>
+
+    </mat-dialog-actions>
+</div>
+
+<div class="confirmation-dialog" *ngIf="data.action == 'archiveBusinessModel'">
+    <mat-icon class="icon" [ngStyle]="{'color':'#FFA000'}"><span class="material-icons">
+            warning
+        </span>warning</mat-icon>
+    <div class="question-no-1">Are you sure you want to</div>
+    <div class="question-no-2">{{data.question2}}</div>
+    <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close class="btn-action-dialog btn-no">NO</button>
+        <button [disabled]="isArchivingBusinessModel$ | async" [class.spinner]="isArchivingBusinessModel$ | async"
+            mat-raised-button class="btn-primary btn-action-dialog" cdkFocusInitial
+            (click)="archiveBusinessModel()">YES</button>
+    </mat-dialog-actions>
+</div>

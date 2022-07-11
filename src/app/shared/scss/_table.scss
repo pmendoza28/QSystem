@@ -1,0 +1,22 @@
+@import "./theme";
+
+.update-animate-row {
+    animation-name: table-row-animation;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+}
+@keyframes table-row-animation {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: $blink;
+    }
+
+    100% {
+        background-color: $bgColor;
+        color: $primary;
+    }
+}

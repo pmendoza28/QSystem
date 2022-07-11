@@ -1,0 +1,130 @@
+@import "../../../shared/scss/theme";
+
+
+
+.create-business-operation-content {
+    h3 {
+        width: 90%;
+        color: $primary;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+    
+        mat-icon {
+            color: black;
+            background-color: gray;
+            border-radius: 1em;
+        }
+    }
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    mat-form-field {
+        width: 90%;
+    }
+    .actions {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+.user-details {
+    width: 96%;
+    margin-top: 5px;
+    border-radius: 5px;
+    background-color: $bgColor;
+    padding: 5px;
+
+    .title {
+        color: $primary;
+    }
+
+    li {
+        color: $accent;
+    }
+}
+
+.export-to-excel {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .icon {
+        margin-top: 10px;
+        transform: scale(2);
+        color: blue;
+    }
+
+    .dialog-title {
+        margin: 20px 0px 0px 0px;
+    }
+
+    mat-dialog-content {
+        min-height: 50px;
+
+        mat-radio-group {
+            padding: 10px 0px 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-content: center;
+            gap: 10px;
+        }
+
+        .date-picker {
+            width: 100%;
+        }
+    }
+
+    mat-dialog-actions {
+        gap: 5px;
+    }
+
+}
+
+.confirmation-dialog {
+    width: 250px;
+    width: 100%;
+}
+
+.archive-dialog {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .icon {
+        transform: scale(2);
+        margin-top: 15px;
+    }
+
+    .question-no-1 {
+        color: white;
+        margin: 20px 0px 0px;
+        letter-spacing: 1px;
+    }
+
+    .question-no-2 {
+        color: #1FB58F;
+        letter-spacing: 1px;
+    }
+
+    mat-dialog-actions {
+        gap: 10px;
+    }
+
+    button {
+        width: 100px;
+    }
+}

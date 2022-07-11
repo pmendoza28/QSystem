@@ -1,0 +1,134 @@
+<form class="create-order-type-form" *ngIf="data.action == 'CreateOrderTypeForm'" [formGroup]="orderTypeForm" (submit)="showCreateConfirmationDialog()">
+    <h3 mat-dialog-title class="title">
+        <mat-icon>add</mat-icon>
+        <label>Add Order Type</label>
+    </h3>
+
+    <mat-form-field color="accent">
+        <mat-label>Business Model Code</mat-label>
+        <mat-select formControlName="business_model_code" cdkFocusInitial>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="BusinessModelFilterCtrl"
+                    placeholderLabel="{{businessModelPlaceHolder}}"
+                    noEntriesFoundLabel="'no matching Business Model'">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let item of filteredBusinessModel | async" [value]="item.code">
+                {{item.name | uppercase}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="orderTypeForm.controls.business_model_code.errors?.required == true">Business
+            Model is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy" color="accent">
+        <mat-label>CODE</mat-label>
+        <input class="input-field" appInputNumberOnly formControlName="code" appInputNumberOnly matInput
+            autocomplete="off">
+        <mat-error *ngIf="orderTypeForm.controls.code.errors?.required == true">Code is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="legacy" color="accent">
+        <mat-label>DESCRIPTION</mat-label>
+        <input formControlName="name" class="upper-case" matInput autocomplete="off">
+        <mat-error *ngIf="orderTypeForm.controls.name.errors?.required == true">Description is required
+        </mat-error>
+    </mat-form-field>
+    
+    <div class="actions">
+        <button [disabled]="!orderTypeForm.valid" mat-raised-button class="btn-primary btn-action-dialog"
+            cdkFocusInitial>
+            Create
+        </button>
+        <button type="button" mat-raised-button mat-dialog-close class="btn-action-dialog">Cancel</button>
+    </div>
+</form>
+
+<div class="confirmation-dialog" *ngIf="data.action == 'submitCreateOrderType'">
+    <mat-icon class="icon" [ngStyle]="{'color':'#303F9F'}">
+        help
+    </mat-icon>
+    <div class="question-no-1">{{data.question1}}</div>
+    <div class="question-no-2">{{data.question2}}</div>
+    <mat-dialog-actions>
+        <button class="btn-action-dialog btn-no" mat-raised-button mat-dialog-close>NO</button>
+        <button [disabled]="(isCreatingOrderType$ | async)" [class.spinner]="isCreatingOrderType$ | async"
+            mat-raised-button class="btn-action-dialog btn-primary" cdkFocusInitial
+            (click)="createOrderType()">YES</button>
+
+    </mat-dialog-actions>
+</div>
+
+
+<form class="create-order-type-form" *ngIf="data.action == 'UpdateOrderTypeForm'" [formGroup]="orderTypeForm" (submit)="showUpdateConfirmationDialog()">
+    <h3 mat-dialog-title class="title">
+        <mat-icon>edit</mat-icon>
+        <label>Edit Order Type</label>
+    </h3>
+
+    <mat-form-field color="accent">
+        <mat-label>Business Model Code</mat-label>
+        <mat-select formControlName="business_model_code" cdkFocusInitial>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="BusinessModelFilterCtrl"
+                    placeholderLabel="{{businessModelPlaceHolder}}"
+                    noEntriesFoundLabel="'no matching Business Model'">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let item of filteredBusinessModel | async" [value]="item.code">
+                {{item.name | uppercase}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="orderTypeForm.controls.business_model_code.errors?.required == true">Business
+            Model is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy" color="accent">
+        <mat-label>CODE</mat-label>
+        <input class="input-field" appInputNumberOnly formControlName="code" appInputNumberOnly matInput
+            autocomplete="off">
+        <mat-error *ngIf="orderTypeForm.controls.code.errors?.required == true">Code is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="legacy" color="accent">
+        <mat-label>DESCRIPTION</mat-label>
+        <input formControlName="name" class="upper-case" matInput autocomplete="off">
+        <mat-error *ngIf="orderTypeForm.controls.name.errors?.required == true">Description is required
+        </mat-error>
+    </mat-form-field>
+    
+    <div class="actions">
+        <button [disabled]="!orderTypeForm.valid" mat-raised-button class="btn-primary btn-action-dialog"
+            cdkFocusInitial>
+            SAVE
+        </button>
+        <button type="button" mat-raised-button mat-dialog-close class="btn-action-dialog">CANCEL</button>
+    </div>
+</form>
+
+
+<div class="confirmation-dialog" *ngIf="data.action == 'SubmitUpdateOrderType'">
+    <mat-icon class="icon" [ngStyle]="{'color':'#303F9F'}">
+        help
+    </mat-icon>
+    <div class="question-no-1">{{data.question1}}</div>
+    <div class="question-no-2">{{data.question2}}</div>
+    <mat-dialog-actions>
+        <button class="btn-action-dialog btn-no" mat-raised-button mat-dialog-close>NO</button>
+        <button [disabled]="(isUpdatingOrderType$ | async)" [class.spinner]="isUpdatingOrderType$ | async"
+            mat-raised-button class="btn-action-dialog btn-primary" cdkFocusInitial
+            (click)="updateOrderType()">YES</button>
+
+    </mat-dialog-actions>
+</div>
+
+
+<div class="confirmation-dialog" *ngIf="data.action == 'archiveOrderType'">
+    <mat-icon class="icon" [ngStyle]="{'color':'#FFA000'}"><span class="material-icons">
+            warning
+        </span>warning</mat-icon>
+    <div class="question-no-1">{{data.question1}}</div>
+    <div class="question-no-2">{{data.question2}}</div>
+    <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close class="btn-action-dialog btn-no">NO</button>
+        <button [disabled]="isArchivingOrderType$ | async" [class.spinner]="isArchivingOrderType$ | async"
+            mat-raised-button class="btn-primary btn-action-dialog" cdkFocusInitial
+            (click)="archiveOrderType()">YES</button>
+    </mat-dialog-actions>
+</div>

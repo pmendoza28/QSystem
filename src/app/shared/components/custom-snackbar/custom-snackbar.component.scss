@@ -1,0 +1,21 @@
+::ng-deep .snackbar-container {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    padding: 0px 20px;
+    mat-icon {
+        transform: scale(2);
+        color: white;
+    }
+    label {
+        font-size: 18px;
+        font-weight: 500;
+        color: white;
+    }
+}
+::ng-deep .snackbar-success {
+    background-color: #00897B;
+}

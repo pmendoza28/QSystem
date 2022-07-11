@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { UntypedFormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { fromEvent, interval, of } from 'rxjs';
 import { debounceTime, map, mapTo, switchMap } from 'rxjs/operators';
+import { UtilsService } from 'src/app/shared/services/utils.service';
 import { RxjsService } from './rxjs.service';
 
 @Component({
@@ -14,11 +15,18 @@ export class RxjsComponent implements OnInit {
 
   constructor(
     private rxjsService: RxjsService,
-    private changeDetectionRef: ChangeDetectorRef
+    private changeDetectionRef: ChangeDetectorRef,
+    private fb: FormBuilder,
+    private utilsService: UtilsService
   ) { }
 
+  sampleForm: FormGroup = new FormGroup({
+    username: new FormControl<string | null>(null),
+    password: new FormControl<string | null>(null),
+  })
   ngOnInit(): void {
     this.switchMapOperator()
+    console.log(this.sampleForm.value.name)
 
   }
 
@@ -35,7 +43,9 @@ export class RxjsComponent implements OnInit {
     ).subscribe(console.log)
   }
   searchControl: UntypedFormControl = new UntypedFormControl("", [Validators.required])
+  
   counter: number = 0;
+
   switchMapOperator() {
     // fromEvent(document, "click").pipe(
     //   switchMap(() => interval(500))
@@ -51,5 +61,9 @@ export class RxjsComponent implements OnInit {
       this.changeDetectionRef.detectChanges()
     })
 
+  }
+
+  openSnackbar() {
+    this.utilsService.alertDialog({icon: "check_circle", label: "Success!"})
   }
 }

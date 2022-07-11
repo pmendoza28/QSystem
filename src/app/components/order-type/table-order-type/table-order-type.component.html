@@ -1,0 +1,113 @@
+<div class="wrapper">
+    <div class="container">
+        <div class="title">
+            <mat-icon>list_alt</mat-icon>
+            <label>ORDER TYPES</label>
+        </div>
+        <div class="actions">
+            <button mat-raised-button class="btn-primary btn-component-action"
+                    (click)="createOrderType()">ADD</button>
+                <mat-checkbox (change)="toggleArchived()">Show Archived</mat-checkbox>
+            <mat-form-field appearance="legacy" class="search" color="accent">
+                <mat-label>Search</mat-label>
+                <input [formControl]="txtSearch" autocomplete="off" matInput (keydown.enter)="search()">
+                <mat-icon style="margin-right: 5px;" matPrefix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="table-list-container">
+            <div class="table-container">
+                <table mat-table [dataSource]="dataSource" #tblOrderType>
+                    <ng-container matColumnDef="id">
+                        <th class="id" mat-header-cell *matHeaderCellDef> ID
+                        </th>
+                        <td mat-cell *matCellDef="let element" [class.update-animate-row]="element.updated">
+                            {{element.id}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="order_type_code">
+                        <th class="order-type-code" mat-header-cell *matHeaderCellDef> ORDER TYPE CODE </th>
+                        <td mat-cell *matCellDef="let element" [class.update-animate-row]="element.updated">
+                            {{element.code}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="description">
+                        <th class="description" mat-header-cell *matHeaderCellDef> DESCRIPTION </th>
+                        <td mat-cell *matCellDef="let element" [class.update-animate-row]="element.updated">
+                            {{element.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="business_model_code">
+                        <th class="business-model-code" mat-header-cell *matHeaderCellDef> BUSINESS MODEL CODE </th>
+                        <td mat-cell *matCellDef="let element" [class.update-animate-row]="element.updated">
+                            {{element.business_model_code}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="business_model_name">
+                        <th class="business-model-name" mat-header-cell *matHeaderCellDef> BUSINESS MODEL NAME </th>
+                        <td mat-cell *matCellDef="let element" [class.update-animate-row]="element.updated">
+                            {{element.business_model.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th class="status" mat-header-cell *matHeaderCellDef> STATUS </th>
+                        <td class="status-value" [class.update-animate-row]="element.updated" mat-cell *matCellDef="let element">
+                            <ng-container *ngIf="(isArchived | async) == false; else archivedStatus"
+                                [class.updated-row]="element.updated">
+                                ACTIVE
+                            </ng-container>
+                            <ng-template #archivedStatus>
+                                <div class="archived-status" [class.updated-row]="element.updated_at">
+                                    ARCHIVED
+                                </div>
+                            </ng-template>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="created_at">
+                        <th class="created_at" mat-header-cell *matHeaderCellDef> DATE CREATED </th>
+                        <td mat-cell *matCellDef="let element" [class.update-animate-row]="element.updated">
+                            {{element.created_at | date: 'MM/dd/yyyy hh:mm:ss a'}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>ACTION</th>
+                        <td class="" mat-cell *matCellDef="let element"  [class.update-animate-row]="element.updated">
+                            <ng-container *ngIf="(isArchived | async) == false; else archivedUsers">
+                                <button matTooltip="actions" mat-icon-button [matMenuTriggerFor]="menu"
+                                    matTooltip="Actions" matTooltip="Actions"
+                                    aria-label="Example icon-button with a menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="editOrderType(element.id, element)">
+                                        <mat-icon>edit</mat-icon>
+                                        <span>Edit</span>
+                                    </button>
+                                    <button matTooltip="Restore" mat-menu-item
+                                        (click)="archiveBusinessOperation(element.id, false)">
+                                        <mat-icon>archive</mat-icon>
+                                        <span>Archive</span>
+                                    </button>
+                                </mat-menu>
+                            </ng-container>
+                            <ng-template #archivedUsers>
+                                <button matTooltip="Restore" mat-icon-button
+                                    (click)="archiveBusinessOperation(element.id, true)">
+                                    <mat-icon>keyboard_return</mat-icon>
+                                </button>
+                            </ng-template>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="8">{{textLoader | async}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="paginator">
+            <div matRipple class="btn-export unselectable" (click)="exportToExcel()">
+                <mat-icon>drive_file_move</mat-icon>
+                EXPORT
+            </div>
+            <mat-paginator color="accent" [showFirstLastButtons]="true" [pageSizeOptions]="pageSizeOptions"
+                [pageSize]="limit | async" [length]="total | async" (page)="onChangePage($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; overflow: hidden;  }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 @import "./app/shared/scss/theme";
 @import "./app/shared/scss/btn";
@@ -9,5 +17,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import "./app/shared/scss/label";
 @import "./app/shared/scss/box";
 @import "./app/shared/scss/font";
-@import "./app/shared/scss/dialog";
 @import "./app/shared/scss/input";
+@import "./app/shared/scss/button";
+@import "./app/shared/scss/dialog";
+@import "./app/shared/scss/snackbar";
+@import "./app/shared/scss/table";
+
+mat-dialog-container {
+    background-color: #313338 !important;
+}
+
+
+.backdropBackground {
+    filter: blur(20px);
+    background-color: black;
+    opacity: 0.7 !important;
+}

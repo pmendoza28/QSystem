@@ -9,7 +9,7 @@
     align-items: center;
 
     .container {
-        width: 75%;
+        width: 80%;
         height: 500px;
         border-radius: 1em;
         color: white;
@@ -91,9 +91,8 @@
             flex-direction: row;
             justify-content: flex-start;
             align-items: flex-start;
-            box-shadow: 1px 1px 5px gray;
             border-radius: 5px;
-            height: 350px;
+            height: 296px;
             overflow: auto;
 
             .table-container {
@@ -101,11 +100,12 @@
 
                 table {
                     width: 100%;
+                    background-color: transparent;
                 }
 
                 th {
                     color: gray;
-                    font-size: 14px;
+                    font-size: 12px;
                     padding-left: 15px;
                     border-bottom: 2px solid $primary;
                 }
@@ -154,7 +154,7 @@
                 }
 
                 .status-value {
-                    color: gray;
+                    color:#1FB58F;
                     .archived-status {
                         color: $warn;
                     }
@@ -162,6 +162,9 @@
 
                 .date-created {
                     min-width: 200px;
+                }
+                .action-row {
+                    min-width: 50px;
                 }
             }
 
@@ -234,6 +237,9 @@
 
         .paginator {
             width: 100%;
+            mat-paginator {
+                background-color: transparent;
+            }
         }
 
     }

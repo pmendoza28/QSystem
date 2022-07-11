@@ -5,10 +5,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CloseConfirmationDialogComponent } from './components/close-confirmation-dialog/close-confirmation-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component';
 @NgModule({
   declarations: [
     ConfirmationDialogComponent,
-    CloseConfirmationDialogComponent
+    CloseConfirmationDialogComponent,
+    CustomSnackbarComponent
   ],
   imports: [
     CommonModule,

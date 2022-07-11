@@ -53,7 +53,7 @@
             <div class="grp-name">PERMISSIONS</div>
             <div class="permissions">
                 <ng-container *ngFor="let permission of permissions; let i = index " ;>
-                    <mat-checkbox (keydown.enter)="createUser()" [(ngModel)]="permission.isChecked" color="accent" [value]="permission.id">
+                    <mat-checkbox  (keydown.enter)="createUser()" [(ngModel)]="permission.isChecked" color="primary" [value]="permission.id">
                         {{permission.module_desc}}
                     </mat-checkbox>
                 </ng-container>
@@ -64,7 +64,7 @@
         </ng-template>
 
         <div class="actions">
-            <button mat-raised-button color="accent" (click)="createUser()" [disabled]="!isFormValid()">Create</button>
+            <button mat-raised-button class="btn-create btn-component-action" (click)="createUser()" [disabled]="!isFormValid()">CREATE</button>
         </div>
     </div>
 </div>

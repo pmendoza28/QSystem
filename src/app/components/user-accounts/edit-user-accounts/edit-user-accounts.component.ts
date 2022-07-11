@@ -73,10 +73,16 @@ export class EditUserAccountsComponent implements OnInit {
       }).subscribe(userForm => {
         this.dialog.open(DialogUserAccountsComponent, {
           disableClose: true,
+          maxWidth: "100vw",
+          width: '100%',
+          panelClass: 'full-screen-modal',
+          backdropClass: "backdropBackground",
           data: {
             userId: this.user_id.getValue(),
             userForm,
-            action: "updateUserAccount"
+            action: "updateUserAccount",
+            question1: "Are you sure you want to",
+            question2: "Save edit?"
           }
         })
       })

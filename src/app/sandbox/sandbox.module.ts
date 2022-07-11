@@ -9,6 +9,11 @@ import { CustomPipePipe } from './stream/pipes/custom-pipe.pipe';
 import { RxjsTipsComponent } from './rxjs-tips/rxjs-tips.component';
 import { HernanieApiTestingComponent } from './hernanie-api-testing/hernanie-api-testing.component';
 import { DimensionalComponent } from './dimensional/dimensional.component';
+import { AnimationTutorialComponent } from './animation-tutorial/animation-tutorial.component';
+import { TableAnimationComponent } from './table-animation/table-animation.component';
+import { MatTableModule } from "@angular/material/table";
+import { BrowserAnimationsModule, NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { CustomTableComponent } from './custom-table/custom-table.component';
 
 @NgModule({
     declarations: [
@@ -18,13 +23,18 @@ import { DimensionalComponent } from './dimensional/dimensional.component';
         CustomPipePipe,
         RxjsTipsComponent,
         HernanieApiTestingComponent,
-        DimensionalComponent
+        DimensionalComponent,
+        AnimationTutorialComponent,
+        TableAnimationComponent,
+        CustomTableComponent
     ],
     imports: [
         HttpClientModule,
         CommonModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        MatTableModule,
+        BrowserAnimationsModule,
     ]
 })
 

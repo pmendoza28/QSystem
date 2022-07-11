@@ -3,6 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { CustomSnackbarComponent } from 'src/app/shared/components/custom-snackbar/custom-snackbar.component';
+import { UtilsService } from 'src/app/shared/services/utils.service';
 import { SubSink } from 'subsink';
 import { UserAccountsService } from '../user-accounts.service';
 
@@ -18,7 +20,8 @@ export class DialogUserAccountsComponent implements OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private userAccountsService: UserAccountsService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private utilsService: UtilsService
   ) { }
 
   subs = new SubSink()
@@ -35,13 +38,18 @@ export class DialogUserAccountsComponent implements OnDestroy {
       this.userAccountsService.createUserAccount(this.data.userForm).subscribe({
         next: (response) => {
           this.isCreatingUserAccount$.next(false)
-          this.snackbar.open(response.message, "", { duration: 3000 })
+          this.utilsService.alertDialog({ icon: "check_circle", label: "Success!" })
           this.dialogRef.close()
           this.router.navigate(["/admin/user-accounts"])
         },
         error: (err) => {
           this.isCreatingUserAccount$.next(false)
-          this.snackbar.open(err.error.errors.username[0], "", { duration: 3000 })
+          this.snackbar.open(err.error.errors.username[0], "", { 
+            horizontalPosition: "right",
+            verticalPosition: "bottom",
+            panelClass: ['snackbar-success'],
+            duration: 3000
+           })
         }
       })
     )
@@ -76,7 +84,7 @@ export class DialogUserAccountsComponent implements OnDestroy {
         next: (response:any) => {
           console.log(response)
           this.isArchivingUserAccount$.next(false)
-          this.snackbar.open(response.message, "", { duration: 3000} )
+          this.utilsService.alertDialog({ icon: "check_circle", label: "Success!" })
           this.dialogRef.close({isArchived: true})
         },
         error: (err) => {

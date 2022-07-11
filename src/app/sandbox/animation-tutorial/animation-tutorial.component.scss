@@ -1,0 +1,41 @@
+.container {
+    border: 1px solid black;
+    width: 250px;
+    height: 250px;
+    margin: 20px;
+    animation-name: custom;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+}
+
+@keyframes custom {
+    0% {
+        background-color: white;
+        position: absolute;
+        left: 0px;
+    }
+
+    50% {
+        background-color: green;
+        position: absolute;
+        left: 100px;
+    }
+
+    70% {
+        background-color: red;
+        position: absolute;
+        left: 500px;
+    }
+
+    80% {
+        background-color: black;
+        position: absolute;
+        left: 500px;
+    }
+    100% {
+        background-color: blue;
+        position: absolute;
+        left: 800px;
+    }
+}

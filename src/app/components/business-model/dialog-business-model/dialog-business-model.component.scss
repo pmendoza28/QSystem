@@ -1,0 +1,42 @@
+@import "../../../shared/scss/theme";
+
+.business-model-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .dialog-title {
+        padding-left: 5px;
+
+        .dialog-label {
+            border-left: 2px solid $primary;
+            padding-left: 5px;
+        }
+
+        width: 100%;
+        color: $primary;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .btn-close {
+        margin-left: auto;
+    }
+
+    .form {
+        mat-form-field {
+            width: 100%;
+        }
+        .actions {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+    }
+}

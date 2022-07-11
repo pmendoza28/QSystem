@@ -18,9 +18,9 @@
                     <mat-icon class="expand">{{isMasterlistOpen ? "expand_less" : "expand_more"}}</mat-icon>
                 </div>
                 <div class="child" [class.toggle-child]="isMasterlistOpen">
-                    <div *ngFor="let menu of masterlists" class="c-menu" (click)="navigateTo('user-accounts')">
+                    <div *ngFor="let menu of masterlists" class="c-menu" (click)="navigateTo(menu.to)">
                         <mat-icon>{{menu.icon}}</mat-icon>
-                        <label>{{menu.label}}</label>
+                        <label style="cursor: pointer;">{{menu.label}}</label>
                     </div>
                     <!-- <div class="c-menu" (click)="navigateTo('user-accounts')">
                         <mat-icon>business</mat-icon>
@@ -67,7 +67,7 @@
             </button>
         </div>
         <div class="main">
-            <button (click)="toggleNotification()" mat-icon-button class="btn-notification btn-primary">
+            <button cdkDrag (click)="toggleNotification()" mat-icon-button class="btn-notification btn-primary">
                 <mat-icon>notifications</mat-icon>
             </button>
             <div class="notifications custom-elavation unselectable"
@@ -131,6 +131,12 @@
             </div>
             <router-outlet class="outlet"></router-outlet>
         </div>
-        <div class="footer">footer</div>
+        <div class="footer">
+            <label class="status-key">Status:</label>
+            <mat-icon>wifi</mat-icon>
+            <label class="status-value">
+                ONLINE
+            </label>
+        </div>
     </div>
 </div>

@@ -6,7 +6,7 @@ import { AdminLayoutService } from './admin-layout.service';
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.component.html',
-  styleUrls: ['./admin-layout.component.scss'],
+  styleUrls: ['./admin-layout.component.scss']
 })
 
 export class AdminLayoutComponent implements OnInit {
@@ -26,13 +26,13 @@ export class AdminLayoutComponent implements OnInit {
   isMasterlistOpen: boolean = false;
 
   masterlists: any[] = [
-    { icon: "person", label: "User Accounts" },
-    { icon: "business", label: "Business Operations" },
-    { icon: "business_center", label: "Business Model" },
-    { icon: "list_alt", label: "Order Types" },
-    { icon: "inventory_2", label: "Product Details" },
-    { icon: "credit_card", label: "Type of Payment" },
-    { icon: "payments", label: "Mode of Payment" },
+    { icon: "person", label: "User Accounts", to: "user-accounts" },
+    { icon: "business", label: "Business Operations", to: "business-operations" },
+    { icon: "business_center", label: "Business Model", to: "business-models" },
+    { icon: "list_alt", label: "Order Types", to: "order-types" },
+    { icon: "inventory_2", label: "Product Details", to: "product-details" },
+    { icon: "credit_card", label: "Type of Payment", to: "" },
+    { icon: "payments", label: "Mode of Payment", to: "" },
   ]
 
   toggleMasterlist() {

@@ -50,8 +50,8 @@ export class UserAccountsComponent implements OnInit {
   page = new BehaviorSubject<number>(1);
   total = new Subject<number>();
   textLoader = new BehaviorSubject<"No Data" | "Loading..." | "Something went wrong">("Loading...")
-  initialUserStatus = new BehaviorSubject(true)
-  isArchived = new BehaviorSubject(false);
+  initialUserStatus = new BehaviorSubject<boolean>(true)
+  isArchived = new BehaviorSubject<boolean>(false);
   ngOnInit(): void {
     this.populateUserAccounts()
   }
@@ -71,22 +71,20 @@ export class UserAccountsComponent implements OnInit {
   }
 
   search() {
-    console.log(this.isArchived.getValue())
     this.isArchived.getValue() == true ? this.populateArchivedUserAccounts() : this.populateUserAccounts() 
   }
 
   onChangePage(pageData: PageEvent) {
     this.page.next(pageData.pageIndex + 1);
     this.limit.next(pageData.pageSize);
-    this.populateUserAccounts();
+    if(this.isArchived.getValue() == true) {
+      this.populateArchivedUserAccounts();
+    }
+    if(this.isArchived.getValue() == false) {
+      this.populateUserAccounts();
+    }
   }
-
-  // setActive() {
-  //   this.txtSearch.setValue("")
-  //   this.isArchived.next(!this.isArchived.getValue())
-  //   this.populateUserAccounts()
-  // }
-
+  
   toggleArchived() {
     this.txtSearch.setValue("")
     this.isArchived.next(!this.isArchived.getValue())
@@ -97,13 +95,7 @@ export class UserAccountsComponent implements OnInit {
       this.populateUserAccounts()
     }
   }
-
-  // setArchived() { 
-  //   this.txtSearch.setValue("")
-  //   this.isArchived.next(!this.isArchived.getValue())
-  //   this.populateArchivedUserAccounts()
-  // }
-
+  
   populateArchivedUserAccounts() {
     this.dataSource.data = []
     this.userAccountService.getArchivedUserAccounts({ search: this.txtSearch.value, limit: this.limit.getValue(), page: this.page.getValue() }).subscribe({
@@ -117,15 +109,21 @@ export class UserAccountsComponent implements OnInit {
       }
     })
   }
+
   archiveUser(userId: number, status: boolean, user: any) {
     this.dialog.open(DialogUserAccountsComponent, {
       disableClose: true,
+      maxWidth: "100vw",
+      width: '100%',
+      panelClass: 'full-screen-modal',
+      backdropClass: "backdropBackground",
       data: {
         userId,
         action: "archiveUser",
         status,
         user,
-        question: status == false ? "Are you sure you want to archive this user account?" : "Are you sure you want to activate this user account?"
+        question1: "Are you sure you want to",
+        question2: status ? "REACTIVATE this DATA" : "ARCHIVE this Data?"
       }
     }).afterClosed().subscribe(response => {
       if(response.isArchived) {
@@ -142,10 +140,16 @@ export class UserAccountsComponent implements OnInit {
   resetPassword(userId:number, user: any) {
     this.dialog.open(DialogUserAccountsComponent, {
       disableClose: true,
+      maxWidth: "100vw",
+      width: '320px',
+      panelClass: 'full-screen-modal',
+      backdropClass: "backdropBackground",
       data: {
         userId,
         action: "resetPassword",
-        user
+        user,
+        question1: "Are you sure you want to",
+        question2: "RESET PASSWORD of this User?"
       }
     }).afterClosed().subscribe(response => {
       if(response.userId) {

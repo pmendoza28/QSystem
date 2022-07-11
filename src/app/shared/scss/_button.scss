@@ -1,0 +1,39 @@
+// .btn-custom {
+//     height: 30px !important;
+//     display: flex !important;
+//     flex-direction: row !important;
+//     justify-content: center !important;
+//     align-items: center !important;
+// }
+
+// .btn-action {
+//     width: 85px;
+//     height: 25px !important;
+//     font-size: 12px;
+// }
+
+.btn-component-action {
+    height: 25px !important;
+    width: 85px;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-size: 12px;
+}
+
+.btn-action-dialog {
+    height: 30px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 80px;
+}
+
+.btn-create {
+    background-color: #696B6E;
+}
+.btn-no {
+    background-color: #313338;
+}

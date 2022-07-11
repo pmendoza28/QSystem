@@ -1,0 +1,131 @@
+<form [formGroup]="businessOperationForm" class="create-business-operation-content"
+    *ngIf="data.action == 'createBusinessOperation'">
+    <h3 mat-dialog-title class="title">
+        <mat-icon>add</mat-icon>
+        Add Business Operation
+    </h3>
+    <mat-form-field appearance="legacy" color="accent">
+        <mat-label>CODE</mat-label>
+        <input class="input-field" formControlName="code" appInputNumberOnly cdkFocusInitial matInput
+            autocomplete="off">
+        <mat-error *ngIf="businessOperationForm.controls.code.errors?.required == true">Code is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="legacy" color="accent">
+        <mat-label>DESCRIPTION</mat-label>
+        <input formControlName="name" class="upper-case" matInput autocomplete="off">
+        <mat-error *ngIf="businessOperationForm.controls.name.errors?.required == true">Description is required
+        </mat-error>
+    </mat-form-field>
+    <div class="actions">
+        <button [disabled]="!businessOperationForm.valid" mat-raised-button class="btn-primary btn-action-dialog"
+            cdkFocusInitial (click)="showCreateConfirmationDialog()">
+            Create
+        </button>
+        <button mat-raised-button mat-dialog-close class="btn-action-dialog">Cancel</button>
+    </div>
+</form>
+
+<div class="confirmation-dialog" *ngIf="data.action == 'submitBusinessOperationCreate'">
+    <mat-icon class="icon" [ngStyle]="{'color':'#303F9F'}">
+        help
+    </mat-icon>
+    <div class="question-no-1">{{data.question1}}</div>
+    <div class="question-no-2">{{data.question2}}</div>
+    <mat-dialog-actions>
+        <button class="btn-action-dialog btn-no" mat-raised-button mat-dialog-close>NO</button>
+        <button [disabled]="(isCreatingBusinessOperation$ | async)"
+            [class.spinner]="isCreatingBusinessOperation$ | async" mat-raised-button
+            class="btn-action-dialog btn-primary" cdkFocusInitial (click)="createBusinessOperation()">YES</button>
+
+    </mat-dialog-actions>
+</div>
+
+<form [formGroup]="businessOperationForm" class="create-business-operation-content"
+    *ngIf="data.action == 'editBusinessOperation'">
+    <h3 mat-dialog-title class="title">
+        <mat-icon>edit</mat-icon>
+        Update Business Operation
+    </h3>
+    <mat-form-field appearance="legacy" color="accent">
+        <mat-label>CODE</mat-label>
+        <input formControlName="code" appInputNumberOnly cdkFocusInitial matInput autocomplete="off">
+        <mat-error *ngIf="businessOperationForm.controls.code.errors?.required == true">Code is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="legacy" color="accent">
+        <mat-label>DESCRIPTION</mat-label>
+        <input formControlName="name" class="upper-case" matInput autocomplete="off">
+        <mat-error *ngIf="businessOperationForm.controls.name.errors?.required == true">Description is required
+        </mat-error>
+    </mat-form-field>
+    <div class="actions">
+        <button mat-raised-button class="btn-primary btn-action-dialog" cdkFocusInitial
+            (click)="showUpdateConfirmationDialog()">SAVE</button>
+        <button mat-raised-button mat-dialog-close class="btn-action-dialog">Cancel</button>
+    </div>
+</form>
+
+<div class="confirmation-dialog" *ngIf="data.action == 'submitBusinessOperationUpdate'">
+    <mat-icon class="icon" [ngStyle]="{'color':'#303F9F'}">
+        help
+    </mat-icon>
+    <div class="question-no-1">{{data.question1}}</div>
+    <div class="question-no-2">{{data.question2}}</div>
+    <mat-dialog-actions>
+        <button class="btn-action-dialog btn-no" mat-raised-button mat-dialog-close>NO</button>
+        <button [disabled]="(isUpdatingBusinessOperation$ | async)"
+            [class.spinner]="isUpdatingBusinessOperation$ | async" mat-raised-button
+            class="btn-action-dialog btn-primary" cdkFocusInitial (click)="updateBusinessOperation()">YES</button>
+    </mat-dialog-actions>
+</div>
+
+<div class="confirmation-dialog" *ngIf="data.action == 'archiveBusinessOperation'">
+    <mat-icon class="icon" [ngStyle]="{'color':'#FFA000'}"><span class="material-icons">
+            warning
+        </span>warning</mat-icon>
+    <div class="question-no-1">Are you sure you want to</div>
+    <div class="question-no-2">{{data.question2}}</div>
+    <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close class="btn-action-dialog btn-no">NO</button>
+        <button [disabled]="isArchivingUserAccount$ | async" [class.spinner]="isArchivingUserAccount$ | async"
+            mat-raised-button class="btn-primary btn-action-dialog" cdkFocusInitial
+            (click)="archiveBusinessOperation()">{{data.buttonName}}</button>
+    </mat-dialog-actions>
+</div>
+
+<div class="export-to-excel" *ngIf="data.action == 'exportToExcel'">
+    <mat-icon class="icon">help_outline</mat-icon>
+    <label class="dialog-title">PLEASE EXPORT ALL / SELECT DATE</label>
+    <mat-dialog-content>
+        <mat-radio-group>
+            <mat-radio-button [checked]="exportType == 'Export All'" (change)="toggleExportType('Export All')"
+                value="Export All">Export All</mat-radio-button>
+            <mat-radio-button [checked]="exportType == 'Custom Date'" (change)="toggleExportType('Custom Date')"
+                value="Custom Date">Custom Date Range</mat-radio-button>
+        </mat-radio-group>
+
+        <ng-container *ngIf="exportType == 'Custom Date'">
+            <mat-form-field class="date-picker" appearance="legacy" color="accent">
+                <mat-label>FROM</mat-label>
+                <input [formControl]="dateStart" matInput [matDatepicker]="from" autocomplete="off" readonly>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                <mat-datepicker #from></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="date-picker" appearance="legacy" color="accent">
+                <mat-label>TO</mat-label>
+                <input [formControl]="dateEnd" matInput [matDatepicker]="to" autocomplete="off" readonly>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                <mat-datepicker #to></mat-datepicker>
+            </mat-form-field>
+
+        </ng-container>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button [disabled]="isExporting$ | async" [class.spinner]="isExporting$ | async" mat-raised-button
+            class="btn-primary" cdkFocusInitial (click)="exportToExcel()">Export</button>
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+</div>

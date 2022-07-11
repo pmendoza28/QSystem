@@ -331,6 +331,26 @@
         .footer {
             grid-column: 1/13;
             grid-row: 3;
+            background-color: #26292E;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            color: white;
+            gap: 10px;
+            padding-right: 15px;
+            height: 37px;
+            .status-key {
+                color: #6D6D6D;
+                font-size: 13px;
+            }
+            .status-value {
+                font-size: 13px;
+                font-weight: 500;
+            }
+            mat-icon {
+                transform: scale(0.9);
+            }
         }
     }
 

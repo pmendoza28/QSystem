@@ -79,9 +79,15 @@ export class CreateUserAccountsComponent implements OnInit, OnDestroy {
         }).subscribe((userForm) => {
           this.dialog.open(DialogUserAccountsComponent, {
             disableClose: true,
+            maxWidth: "100vw",
+            width: '100%',
+            panelClass: 'full-screen-modal',
+            backdropClass: "backdropBackground",
             data: {
               userForm,
-              action: "createUserAccount"
+              action: "createUserAccount",
+              question1: "Are you sure you want to",
+              question2: "CREATE?"
             }
           })
         })

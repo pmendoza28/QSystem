@@ -1,0 +1,29 @@
+@import "../../../shared/scss/theme";
+.create-order-type-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        mat-icon {
+            color: black;
+            background-color: gray;
+            border-radius: 100%;
+            transform: scale(.9);
+        }
+        label {
+            color: $primary;
+        }
+    }
+    .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+    }
+}
